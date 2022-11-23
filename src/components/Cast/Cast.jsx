@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { fetchCreditsFilm } from 'service/api/fetchFilms';
 
@@ -7,21 +7,21 @@ import { CastItem } from '../CastItem/CastItem';
 import { Box } from '../Box';
 
 const Cast = () => {
-  // const { id } = useParams();
+  const { id } = useParams();
   const [casts, setCasts] = useState([]);
 
   useEffect(() => {
-    async function getCast() {
+    async function getCast(id) {
       try {
-        const { data } = await fetchCreditsFilm(436270);
+        const { data } = await fetchCreditsFilm(id);
         setCasts(data.cast);
         console.log(data);
       } catch (error) {
         console.log(error);
       }
     }
-    getCast();
-  }, []);
+    getCast(id);
+  }, [id]);
 
   return (
     <Box>

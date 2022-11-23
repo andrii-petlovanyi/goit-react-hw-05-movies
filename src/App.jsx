@@ -1,25 +1,26 @@
-import { fetchTrendFilms } from 'service/api/fetchFilms';
+import { Route, Routes } from 'react-router-dom';
+import { lazy } from 'react';
+import { Layout } from 'components/Layout/Layout';
+
+const Home = lazy(() => import('./pages/Home'));
+const Movie = lazy(() => import('./pages/Movie'));
+const MovieInfo = lazy(() => import('./pages/MovieInfo'));
+const Cast = lazy(() => import('./components/Cast/Cast'));
+const Reviews = lazy(() => import('./components/Reviews/Reviews'));
 
 export const App = () => {
-  (async function getTrendFilms() {
-    try {
-      const { data } = await fetchTrendFilms();
-      console.log(data);
-    } catch (error) {}
-  })();
-
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101',
-      }}
-    >
-      Hello..=)
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/movie" element={<Movie />} />
+          <Route path="/movie/:id" element={<MovieInfo />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="review" element={<Reviews />} />
+          </Route>
+        </Route>
+      </Routes>
+    </>
   );
 };

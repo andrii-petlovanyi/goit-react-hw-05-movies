@@ -1,12 +1,12 @@
 import { ReviewsItem } from 'components/ReviewsItem/ReviewsItem';
 import { useState, useEffect } from 'react';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { fetchReviewsFilm } from 'service/api/fetchFilms';
 import { ListReviews, TitleReviews } from './Reviews.styled';
 
 const Reviews = () => {
-  //   const { id } = useParams();
-  const [reviews, setReviews] = useState([]); //useState(()=?[])
+  const { id } = useParams();
+  const [reviews, setReviews] = useState(() => []); //useState(()=?[])
 
   useEffect(() => {
     async function getReviews(id) {
@@ -18,8 +18,8 @@ const Reviews = () => {
         console.log(error);
       }
     }
-    getReviews(718930);
-  }, []); //[id]
+    getReviews(id);
+  }, [id]); //[id]
 
   return (
     <>

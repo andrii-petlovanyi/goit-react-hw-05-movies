@@ -13,12 +13,12 @@ const SearchBar = ({ setMovies }) => {
     formState: { errors },
   } = useForm({ defaultValues: { search: '' } });
 
-  //   const [searchParams, setSearchParams] = useSearchParams();
-  const [search, setSearch] = useState(); // () => searchParams.get('query') ?? ''
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState(() => searchParams.get('query') ?? ''); // () => searchParams.get('query') ?? ''
 
   const onSubmit = ({ search }) => {
     setSearch(search);
-    // setSearchParams({ query: search });
+    setSearchParams({ query: search });
     reset();
   };
 
@@ -28,14 +28,14 @@ const SearchBar = ({ setMovies }) => {
     async function getFilmsByName(search) {
       try {
         const { data } = await fetchSearchFilms(search);
-        //   setMovies(data.results)
+        setMovies(data.results);
         console.log(data.results);
       } catch (error) {
         console.log(error);
       }
     }
     getFilmsByName(search);
-  }, [search]); //[search, setMovies]
+  }, [search, setMovies]); //[search, setMovies]
 
   return (
     <Box display="flex" height="65px" width="100%">
