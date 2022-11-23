@@ -15,27 +15,31 @@ import {
 } from 'components/TrendFilms/MovieInfo.styled';
 import { Btn, Linked } from 'components/Cast/Cast.styled';
 
-const MovieDetails = () => {
+const MovieInfo = () => {
   const location = useLocation();
   const backLinkHref = location.state?.from ?? '/';
   const { id } = useParams();
   const [movies, setMovies] = useState('');
   useEffect(() => {
-    async function getFilm(id) {
-      try {
-        const { data } = await fetchInfoAboutFilm(id);
-        setMovies(data.results);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getFilm(id);
+    // async function getFilm(id) {
+    //   try {
+    //     const { data } = await fetchInfoAboutFilm(id);
+    //     setMovies(data.results);
+    //     console.log(data);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
+    // getFilm(id);
+
+    fetchInfoAboutFilm(id).then(resp => setMovies(resp.data));
   }, [id]);
 
-  let imgUrl = contentURL + movies.poster_path;
-  if (movies.poster_path === null) {
-    imgUrl = 'https://i.postimg.cc/MTBLYYMP/poster-not-available.jpg';
-  }
+  let imgUrl =
+    movies.poster_path === null
+      ? 'https://i.postimg.cc/MTBLYYMP/poster-not-available.jpg'
+      : contentURL + movies.poster_path;
+
   const { title, overview, genres, release_date, vote_average } = movies;
 
   return (
@@ -68,12 +72,12 @@ const MovieDetails = () => {
           <Linked to="reviews" state={{ from: backLinkHref }}>
             <Btn>Reviews</Btn>
           </Linked>
-          {/* <Suspense fallback={<Spinner />}>
+          <Suspense fallback={null}>
             <Outlet />
-          </Suspense> */}
+          </Suspense>
         </section>
       )}
     </Container>
   );
 };
-export default MovieDetails;
+export default MovieInfo;

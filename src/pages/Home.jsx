@@ -6,7 +6,7 @@ import { fetchTrendFilms } from 'service/api/fetchFilms';
 import { TrendFilms } from 'components/TrendFilms/TrendFilms';
 
 const Home = () => {
-  const [films, setFilms] = useState(() => []);
+  const [films, setFilms] = useState([]);
 
   useEffect(() => {
     async function getTrendFilm() {
@@ -20,10 +20,6 @@ const Home = () => {
     getTrendFilm();
   }, []);
 
-  return (
-    <main>
-      <TrendFilms films={films} />
-    </main>
-  );
+  return <main>{films.length > 0 && <TrendFilms movies={films} />}</main>;
 };
 export default Home;

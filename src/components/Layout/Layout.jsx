@@ -1,5 +1,5 @@
-// import { Suspense } from 'react';
-// import { Outlet } from 'react-router-dom';
+import { Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
 
 import { Container, Header, NavBtn } from './Layout.styled';
 
@@ -12,9 +12,9 @@ export const Layout = () => {
           <NavBtn to="/Movie">Movie</NavBtn>
         </nav>
       </Header>
-      {/* <Suspense fallback={<Spinner />}>
+      <Suspense fallback={null}>
         <Outlet />
-      </Suspense> */}
+      </Suspense>
     </Container>
   );
 };

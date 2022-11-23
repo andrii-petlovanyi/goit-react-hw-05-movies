@@ -8,18 +8,22 @@ export const TrendFilms = ({ movies }) => {
   const location = useLocation();
 
   return (
-    <List>
-      {movies.map(film => (
-        <ListItem key={film.id}>
-          <Links to={`/movie/${film.id}`} state={{ from: location }}>
-            <TrendFilmItem film={film} />
-          </Links>
-        </ListItem>
-      ))}
-    </List>
+    <>
+      {movies?.length > 0 && (
+        <List>
+          {movies.map(film => (
+            <ListItem key={film.id}>
+              <Links to={`/movie/${film.id}`} state={{ from: location }}>
+                <TrendFilmItem film={film} />
+              </Links>
+            </ListItem>
+          ))}
+        </List>
+      )}
+    </>
   );
 };
 
 TrendFilms.propTypes = {
-  movies: PropTypes.array.isRequired,
+  movies: PropTypes.array,
 };
