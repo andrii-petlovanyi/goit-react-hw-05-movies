@@ -20,27 +20,22 @@ const MovieInfo = () => {
   const backLinkHref = location.state?.from ?? '/';
   const { id } = useParams();
   const [movies, setMovies] = useState('');
-  useEffect(() => {
-    // async function getFilm(id) {
-    //   try {
-    //     const { data } = await fetchInfoAboutFilm(id);
-    //     setMovies(data.results);
-    //     console.log(data);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
-    // getFilm(id);
 
-    fetchInfoAboutFilm(id).then(resp => setMovies(resp.data));
+  useEffect(() => {
+    async function getFilm(id) {
+      try {
+        const { data } = await fetchInfoAboutFilm(id);
+        setMovies(data);
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getFilm(id);
   }, [id]);
 
-  let imgUrl =
-    movies.poster_path === null
-      ? 'https://i.postimg.cc/MTBLYYMP/poster-not-available.jpg'
-      : contentURL + movies.poster_path;
-
-  const { title, overview, genres, release_date, vote_average } = movies;
+  const { title, overview, genres, release_date, vote_average, poster_path } =
+    movies;
 
   return (
     <Container>
@@ -48,7 +43,14 @@ const MovieInfo = () => {
       {movies && (
         <section>
           <Wrapper>
-            <Image src={imgUrl} alt={title} />
+            <Image
+              src={
+                poster_path === null
+                  ? 'https://i.postimg.cc/MTBLYYMP/poster-not-available.jpg'
+                  : contentURL + poster_path
+              }
+              alt={title}
+            />
             <Desc>
               <Title>{title}</Title>
               <p>{overview}</p>
@@ -67,7 +69,7 @@ const MovieInfo = () => {
             </p>
           </Desc>
           <Linked to="cast" state={{ from: backLinkHref }}>
-            <Btn>CAST</Btn>
+            <Btn>Cast</Btn>
           </Linked>
           <Linked to="reviews" state={{ from: backLinkHref }}>
             <Btn>Reviews</Btn>
