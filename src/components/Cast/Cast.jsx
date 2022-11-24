@@ -5,6 +5,7 @@ import { fetchCreditsFilm } from 'service/api/fetchFilms';
 
 import { CastItem } from '../CastItem/CastItem';
 import { Box } from '../Box';
+import { CastList, CastTitle } from './Cast.styled';
 
 const Cast = () => {
   const { id } = useParams();
@@ -15,7 +16,6 @@ const Cast = () => {
       try {
         const { data } = await fetchCreditsFilm(id);
         setCasts(data.cast);
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -26,13 +26,13 @@ const Cast = () => {
   return (
     <Box>
       {!casts.length > 0 ? (
-        <h1>No casts</h1>
+        <CastTitle>No casts</CastTitle>
       ) : (
-        <ul>
+        <CastList>
           {casts.map(cast => (
             <CastItem key={cast.cast_id} cast={cast} />
           ))}
-        </ul>
+        </CastList>
       )}
     </Box>
   );

@@ -1,5 +1,5 @@
 import { Outlet, useParams, useLocation } from 'react-router-dom';
-// import Spinner from 'components/Spinner/Spinner';
+// import Loader from 'components/Loader/Loader';
 import { useState, useEffect, Suspense } from 'react';
 
 import { contentURL, fetchInfoAboutFilm } from 'service/api/fetchFilms';
@@ -12,6 +12,9 @@ import {
   Title,
   BackBtn,
   Container,
+  WrapperBtn,
+  WrapperOutlet,
+  IconBack,
 } from 'components/TrendFilms/MovieInfo.styled';
 import { Btn, Linked } from 'components/Cast/Cast.styled';
 
@@ -26,7 +29,6 @@ const MovieInfo = () => {
       try {
         const { data } = await fetchInfoAboutFilm(id);
         setMovies(data);
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -39,7 +41,9 @@ const MovieInfo = () => {
 
   return (
     <Container>
-      <BackBtn to={backLinkHref}>Back</BackBtn>
+      <BackBtn to={backLinkHref}>
+        <IconBack />
+      </BackBtn>
       {movies && (
         <section>
           <Wrapper>
@@ -54,29 +58,32 @@ const MovieInfo = () => {
             <Desc>
               <Title>{title}</Title>
               <p>{overview}</p>
+
+              <p>
+                <TextWrap>Genres: </TextWrap>
+                {genres.map(gen => gen.name).join(', ')}
+              </p>
+              <p>
+                <TextWrap>Release Date:</TextWrap> {release_date}
+              </p>
+              <p>
+                <TextWrap>Rating:</TextWrap> {vote_average.toFixed(1)}
+              </p>
             </Desc>
           </Wrapper>
-          <Desc>
-            <p>
-              <TextWrap>Genres: </TextWrap>
-              {genres.map(gen => gen.name).join(', ')}
-            </p>
-            <p>
-              <TextWrap>Release Date:</TextWrap> {release_date}
-            </p>
-            <p>
-              <TextWrap>Rating:</TextWrap> {vote_average.toFixed(1)}
-            </p>
-          </Desc>
-          <Linked to="cast" state={{ from: backLinkHref }}>
-            <Btn>Cast</Btn>
-          </Linked>
-          <Linked to="reviews" state={{ from: backLinkHref }}>
-            <Btn>Reviews</Btn>
-          </Linked>
-          <Suspense fallback={null}>
-            <Outlet />
-          </Suspense>
+          <WrapperBtn>
+            <Linked to="cast" state={{ from: backLinkHref }}>
+              <Btn>Cast</Btn>
+            </Linked>
+            <Linked to="reviews" state={{ from: backLinkHref }}>
+              <Btn>Reviews</Btn>
+            </Linked>
+          </WrapperBtn>
+          <WrapperOutlet>
+            <Suspense fallback={null}>
+              <Outlet />
+            </Suspense>
+          </WrapperOutlet>
         </section>
       )}
     </Container>

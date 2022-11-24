@@ -7,7 +7,6 @@ export const TrendFilmItem = ({ film }) => {
   const { title, vote_average, poster_path } = film;
   return (
     <>
-      <FilmTitle>{title}</FilmTitle>
       <FilmPoster
         src={
           poster_path === null
@@ -16,7 +15,8 @@ export const TrendFilmItem = ({ film }) => {
         }
         alt={title}
       />
-      <Rating>{vote_average.toFixed(1)}</Rating>
+      <FilmTitle>{title}</FilmTitle>
+      {vote_average && <Rating>{vote_average.toFixed(1)}</Rating>}
     </>
   );
 };

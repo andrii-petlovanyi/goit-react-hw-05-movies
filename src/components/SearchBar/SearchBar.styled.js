@@ -3,41 +3,48 @@ import styled from '@emotion/styled';
 import { BiSearchAlt } from 'react-icons/bi';
 
 export const Form = styled.form`
-  margin-left: 15px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 65px;
-  border-bottom: 4px solid RGBA(0, 8, 0, 0.1);
+  margin: 0 auto;
+  padding-top: 25px;
+  /* height: 65px; */
+  /* border-bottom: 4px solid RGBA(0, 8, 0, 0.1); */
 `;
 
 export const Input = styled.input`
   margin-right: 5px;
-  border: 1px solid RGBA(255, 255, 0, 0.08);
-  border-radius: 4px;
-  height: 41px;
-  width: 300px;
+  border-radius: 5px;
+  height: 50px;
+  width: 70vw;
   padding-left: 15px;
   color: RGBA(0, 8, 0, 0.68);
   font-size: 20px;
   font-weight: 500;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: 3px solid white;
+
+  @media screen and (min-width: 768px) {
+    width: 50vw;
+  }
+
   &:focus {
-    outline: 3px solid RGBA(255, 255, 0, 0.4);
+    border: 3px solid orange;
   }
 `;
 
 export const Button = styled.button`
   position: absolute;
   top: 24%;
-  left: 85%;
+  right: 10px;
   transform: scale(1);
   transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border: none;
   outline: none;
   background: transparent;
   cursor: pointer;
+
   &:focus {
     transform: scale(1.1);
     transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -55,12 +62,16 @@ export const Button = styled.button`
 export const IconSearch = styled(BiSearchAlt)`
   width: 32px;
   height: 32px;
+  margin-top: 10px;
   fill: RGBA(0, 8, 0, 0.68);
 `;
 
 export const ErrorText = styled.p`
+  position: absolute;
+  top: 100%;
+  left: 45%;
   font-size: 16px;
   font-weight: 500;
-  margin-left: 10px;
   color: red;
+  border-radius: 5px;
 `;

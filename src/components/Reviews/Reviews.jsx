@@ -24,7 +24,7 @@ const Reviews = () => {
   return (
     <>
       {!reviews.length > 0 ? (
-        <p>No reviews</p>
+        <TitleReviews>No reviews</TitleReviews>
       ) : (
         <ListReviews>
           <TitleReviews>Users reviews</TitleReviews>

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 import { contentURL } from 'service/api/fetchFilms';
-import { ListItem, PhotoAct } from './CastItem.styled';
+import { CastLabel, ListItem, PhotoAct } from './CastItem.styled';
 
 export const CastItem = ({ cast = {} }) => {
   const { character, name, profile_path } = cast;
@@ -16,8 +16,8 @@ export const CastItem = ({ cast = {} }) => {
           }
           alt={`photo ${name}`}
         />
-        <p>{name}</p>
-        <p>{character}</p>
+        <CastLabel>{name}</CastLabel>
+        <CastLabel>{character}</CastLabel>
       </ListItem>
     </>
   );

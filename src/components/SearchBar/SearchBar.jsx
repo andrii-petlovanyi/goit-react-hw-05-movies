@@ -6,15 +6,14 @@ import { Button, ErrorText, Form, IconSearch, Input } from './SearchBar.styled';
 import { fetchSearchFilms } from 'service/api/fetchFilms';
 
 const SearchBar = ({ setMovies }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState(() => searchParams.get('query') ?? ''); // () => searchParams.get('query') ?? ''
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm({ defaultValues: { search: '' } });
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [search, setSearch] = useState(() => searchParams.get('query') ?? ''); // () => searchParams.get('query') ?? ''
 
   const onSubmit = ({ search }) => {
     setSearch(search);
@@ -38,7 +37,7 @@ const SearchBar = ({ setMovies }) => {
   }, [search, setMovies]); //[search, setMovies]
 
   return (
-    <Box display="flex" height="65px" width="100%">
+    <Box display="flex" position="relative" height="65px" width="100%">
       <Form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         <Input
           {...register('search', { required: 'This field is required' })}
