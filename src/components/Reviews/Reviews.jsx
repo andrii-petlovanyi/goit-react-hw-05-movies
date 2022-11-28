@@ -6,7 +6,7 @@ import { ListReviews, TitleReviews } from './Reviews.styled';
 
 const Reviews = () => {
   const { id } = useParams();
-  const [reviews, setReviews] = useState();
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     async function getReviews(id) {
