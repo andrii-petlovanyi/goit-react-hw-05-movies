@@ -4,10 +4,12 @@ import { useForm } from 'react-hook-form';
 import { Box } from 'components/Box';
 import { Button, ErrorText, Form, IconSearch, Input } from './SearchBar.styled';
 import { fetchSearchFilms } from 'service/api/fetchFilms';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SearchBar = ({ setMovies }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [search, setSearch] = useState(() => searchParams.get('query') ?? ''); // () => searchParams.get('query') ?? ''
+  const [search, setSearch] = useState(() => searchParams.get('query') ?? '');
   const {
     register,
     handleSubmit,
@@ -27,14 +29,17 @@ const SearchBar = ({ setMovies }) => {
     async function getFilmsByName(search) {
       try {
         const { data } = await fetchSearchFilms(search);
-        setMovies(data.results);
         console.log(data.results);
+        if (data.results.length === 0) {
+          toast(`Sorry, not movie ${search} in database...`);
+        }
+        setMovies(data.results);
       } catch (error) {
         console.log(error);
       }
     }
     getFilmsByName(search);
-  }, [search, setMovies]); //[search, setMovies]
+  }, [search, setMovies]);
 
   return (
     <Box display="flex" position="relative" height="65px" width="100%">
@@ -49,6 +54,18 @@ const SearchBar = ({ setMovies }) => {
         </Button>
       </Form>
       <ErrorText>{errors.search?.message}</ErrorText>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </Box>
   );
 };

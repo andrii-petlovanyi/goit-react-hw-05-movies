@@ -49,7 +49,7 @@ const MovieInfo = () => {
           <Wrapper>
             <Image
               src={
-                poster_path === null
+                poster_path
                   ? 'https://i.postimg.cc/MTBLYYMP/poster-not-available.jpg'
                   : contentURL + poster_path
               }

@@ -6,20 +6,19 @@ import { ListReviews, TitleReviews } from './Reviews.styled';
 
 const Reviews = () => {
   const { id } = useParams();
-  const [reviews, setReviews] = useState(() => []); //useState(()=?[])
+  const [reviews, setReviews] = useState();
 
   useEffect(() => {
     async function getReviews(id) {
       try {
         const { data } = await fetchReviewsFilm(id);
         setReviews(data.results);
-        console.log(data.results);
       } catch (error) {
         console.log(error);
       }
     }
     getReviews(id);
-  }, [id]); //[id]
+  }, [id]);
 
   return (
     <>
