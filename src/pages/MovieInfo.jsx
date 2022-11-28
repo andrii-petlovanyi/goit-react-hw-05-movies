@@ -50,8 +50,8 @@ const MovieInfo = () => {
             <Image
               src={
                 poster_path
-                  ? 'https://i.postimg.cc/MTBLYYMP/poster-not-available.jpg'
-                  : contentURL + poster_path
+                  ? contentURL + poster_path
+                  : 'https://i.postimg.cc/MTBLYYMP/poster-not-available.jpg'
               }
               alt={title}
             />
